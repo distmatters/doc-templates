@@ -54,4 +54,4 @@ These two files provide a skeleton for creating your own memos in LaTeX
 were texMemo.cls has been reposted but it is no longer possible to give direct
 creadit to Rob Oaks himself.
 
-[lgpl]: http://www.gnu.org/licenses/lgpl.html
+[lgpl]:(http://www.gnu.org/licenses/lgpl.html)
