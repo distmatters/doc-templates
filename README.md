@@ -3,7 +3,7 @@
 _Copyright Samantha Kiel, 2020_
 
 _Released under the LGPL, version 3. A copy of the LGPL can be found at
-[http://www.gnu.org/licenses/lgpl.html](lgpl)_
+[http://www.gnu.org/licenses/lgpl.html](http://www.gnu.org/licenses/lgpl.html)_
 
 These files are templates I've put together for writing memos in various
 languages including LaTeX and Pandoc Markdown. A description of each file is 
