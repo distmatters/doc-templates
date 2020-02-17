@@ -1,4 +1,9 @@
 ---
+# Copyright Samantha Kiel, 2020
+
+# Released under the LGPL, version 3. A copy of the LGPL can be found at
+# http://www.gnu.org/licenses/lgpl.html
+
 # Standard information
 title:			
 author: 		Samantha Kiel

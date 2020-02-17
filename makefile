@@ -1,8 +1,8 @@
 # Copyright Samantha Kiel, 2020 
 
-# This Source Code Form is subject to the terms of the Mozilla Public License,
-# v. 2.0. If a copy of the MPL was not distributed with this file, You can 
-# obtain one at  https://mozilla.org/MPL/2.0/ #
+# Released under the LGPL, version 3. A copy of the LGPL can be found at
+# http://www.gnu.org/licenses/lgpl.html
+
 MDC=pandoc
 TEXC=latexmk
 
