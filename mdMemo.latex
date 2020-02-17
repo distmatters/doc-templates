@@ -1,0 +1,136 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage{fixltx2e}	% this was part of the memo template ???? what it does
+\usepackage{tabto}		% Used to line up the memo headings
+\usepackage{enumitem}	% Enumerated Lists, used for memo title
+\usepackage{booktabs}	% Better tables
+\usepackage{amsmath}	% If mathematical Formula are required
+\usepackage{graphicx}	% Images
+\usepackage{fontspec}	% Font Settings
+\usepackage{setspace}	% Control Spacing
+\usepackage{titlesec}	% allow modifications of the title formatting
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom Commands/Formatting %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Horizonal Line
+\newcommand\decorativeline[1][1pt]{
+	\par\noindent%
+	\rule[0.5ex]{\linewidth}{#1}\par
+}
+
+% Commands created by the default latex template for pandoc
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+$if(linespacing)$
+	\linespread{$linespacing$}
+$endif$
+
+% Bibliography
+$if(bibliography)$
+	\usepackage[american]{babel}
+	\usepackage[babel]{csquotes}
+	\usepackage[$for(biboptions)$$biboptions$$sep$,$endfor$]{$bibstyle$}
+	$for(bibliography)$
+		\addbibresource{$bibliography$}
+	$endfor$
+	\urlstyle{same}
+
+$endif$
+
+$if(numbersections)$
+	\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
+$else$
+	\setcounter{secnumdepth}{0}
+$endif$
+
+% Other useful packages
+%\usepackage{pdflscape}
+\PassOptionsToPackage{hyphens}{url}\usepackage[colorlinks]{hyperref}
+\hypersetup{	pdfborder	=	0 0 0,
+				linkcolor	=	blue, 
+				urlcolor	=	blue,
+				citecolor	=	black }
+
+
+% Set Main Font
+$if(mainfont)$
+	\setmainfont{$mainfont$}[
+		Ligatures = TeX,
+		$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]
+$endif$
+
+% Set Roman Font
+$if(romanfont)$
+	\setromanfont[$for(romanfontoptions)$$romanfontoptions$$sep$,$endfor$]{$romanfont$}
+$endif$
+
+% Set Sans font
+$if(sansfont)$
+	\setsansfont{$sansfont$}[
+		Ligatures = TeX,
+		$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]
+$endif$
+
+% Set Mono Font
+$if(monofont)$
+    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
+$endif$
+
+
+
+% Header Formatting
+\titleformat*{\section}{\normalsize \bfseries \sffamily}
+\titleformat*{\subsection}{\normalsize \slshape \sffamily}
+\titleformat*{\subsubsection}{\normalsize \sffamily}
+\titleformat*{\paragraph}{\sffamily}
+\titleformat*{\subparagraph}{\slshape \sffamily}
+
+% Header Spacing
+\titlespacing\section{0pt}{16pt plus 6pt minus 4pt}{4pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{4pt plus 2pt minus 2pt}
+
+% Create the Letterhead and To/From Block
+\renewcommand{\maketitle}{\makememotitle}
+\newcommand\makememotitle{
+	\singlespace
+	$if(memologo)$
+	{ % Create With Logo
+	\begin{minipage}[t]{1\columnwidth}%
+		\begin{flushright}
+			\vspace{-0.6in}
+			$logo$
+			\vspace{0.5in}
+		\par\end{flushright}%
+	\end{minipage}
+	}
+	$endif$
+	% To, From, Subject Block
+	\begin{description}[noitemsep]
+		$if(to)$\item [{\sffamily To:}] \tabto{30 pt} $to$$endif$
+		$if(author)$\item [{\sffamily From:}] \tabto{30 pt} $author$$endif$
+		$if(title)$\item [{\sffamily Subject:}] \tabto{30 pt} $title$$endif$
+		$if(date)$\item [{\sffamily Date:}] \tabto{30 pt} $date$$endif$
+	\end{description} \vspace{-1em}
+	\decorativeline
+}
+
+
+\begin{document}
+\maketitle
+
+$body$
+
+$if(bibliography)$
+	{
+		\newpage
+		\singlespace
+		\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+	}
+$endif$
+\end{document}
