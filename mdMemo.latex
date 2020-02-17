@@ -1,5 +1,10 @@
 \documentclass[12pt,letterpaper]{article}
 
+% Copyright Samantha Kiel, 2020
+
+% Released under the LGPL, version 3. A copy of the LGPL can be found at
+% http://www.gnu.org/licenses/lgpl.html
+
 \usepackage{fixltx2e}	% this was part of the memo template ???? what it does
 \usepackage{tabto}		% Used to line up the memo headings
 \usepackage{enumitem}	% Enumerated Lists, used for memo title
