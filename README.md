@@ -46,13 +46,6 @@ similarly styled memo as texMemo.cls. This started out as a modification
 of Rob Oaks' 2010 texMemo.cls but has grown as I have grown more
 comfortable with both LaTex and writing a pandoc template
 
-makefile
---------
-
-This provides a basic makefile for building both markdown files and
-latex files. Using this file requires pandoc, latexmk, and make to be
-installed on your computer in order to run correctly.
-
 memo-template.{tex,md}
 ----------------------
 
