@@ -1,11 +1,10 @@
-\documentclass[12pt,letterpaper]{article}
+\documentclass[$if(fontsize)$$fontsize$,$else$12pt,$endif$letterpaper]{article}
 
 % Copyright Samantha Kiel, 2020
 
 % Released under the LGPL, version 3. A copy of the LGPL can be found at
 % http://www.gnu.org/licenses/lgpl.html
 
-\usepackage{fixltx2e}	% this was part of the memo template ???? what it does
 \usepackage{tabto}		% Used to line up the memo headings
 \usepackage{enumitem}	% Enumerated Lists, used for memo title
 \usepackage{booktabs}	% Better tables
@@ -14,7 +13,11 @@
 \usepackage{fontspec}	% Font Settings
 \usepackage{setspace}	% Control Spacing
 \usepackage{titlesec}	% allow modifications of the title formatting
+\usepackage{csquotes}	% I think this is needed for enquote to work
 
+
+\RequirePackage{geometry}
+\geometry{margin=1.0in}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Custom Commands/Formatting %
@@ -35,16 +38,15 @@ $if(linespacing)$
 	\linespread{$linespacing$}
 $endif$
 
-% Bibliography
-$if(bibliography)$
-	\usepackage[american]{babel}
-	\usepackage[babel]{csquotes}
-	\usepackage[$for(biboptions)$$biboptions$$sep$,$endfor$]{$bibstyle$}
-	$for(bibliography)$
-		\addbibresource{$bibliography$}
-	$endfor$
-	\urlstyle{same}
-
+$if(natbib)$
+\usepackage[$natbiboptions$]{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
 $endif$
 
 $if(numbersections)$
@@ -61,6 +63,15 @@ $endif$
 				urlcolor	=	blue,
 				citecolor	=	black }
 
+% Pandoc-Citeproc Fix Hanging Indents
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{cslreferences}%
+  {$if(csl-hanging-indent)$\setlength{\parindent}{0pt}%
+  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces$endif$}%
+  {\par}
+$endif$
 
 % Set Main Font
 $if(mainfont)$
@@ -86,6 +97,11 @@ $if(monofont)$
     \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$for(monofontoptions)$$monofontoptions$$sep$,$endfor$$endif$]{$monofont$}
 $endif$
 
+$if(numbersections)$
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
 
 
 % Header Formatting
@@ -104,7 +120,7 @@ $endif$
 \renewcommand{\maketitle}{\makememotitle}
 \newcommand\makememotitle{
 	\singlespace
-	$if(memologo)$
+	$if(logo)$
 	{ % Create With Logo
 	\begin{minipage}[t]{1\columnwidth}%
 		\begin{flushright}
@@ -126,16 +142,51 @@ $endif$
 }
 
 
+
+\newcommand\printbib{
+	
+}
+
+
+
 \begin{document}
+
 \maketitle
 
 $body$
 
+$if(natbib)$
 $if(bibliography)$
-	{
-		\newpage
-		\singlespace
-		\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
-	}
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
 $endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+$endif$
+
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
+
+$if(bibliography)$
+$if(natbib)$
+$else$
+$if(biblatex)$
+$else$
+\section{$if(biblio-title)$$biblio-title$$else$References$endif$}
+$endif$
+$endif$
+$endif$
+
+
+$for(include-after)$
+
+$include-after$
+
+$endfor$
+
 \end{document}

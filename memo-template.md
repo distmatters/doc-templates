@@ -29,7 +29,9 @@ biboptions:
 -	notes
 
 
-#Roman Font Options
+# Font Options
+
+fontsize:		11pt
 mainfont: 		Alegreya
 mainfontoptions:
 -	Extension=.ttf
@@ -38,7 +40,6 @@ mainfontoptions:
 -	ItalicFont=*-Italic
 -	BoldItalicFont=*-MediumItalic
 
-# Sans Font Options
 sansfont: 		AnonymousPro
 sansfontoptions:
 - 	Extension=.ttf
